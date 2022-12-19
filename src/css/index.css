@@ -58,6 +58,10 @@ header, footer {
   background: var(--red);
 }
 
+.disabled {
+  filter: opacity(0.5);
+}
+
 header {
   top: 0;
   width: 100%;
