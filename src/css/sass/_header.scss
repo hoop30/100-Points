@@ -18,4 +18,8 @@ header {
             fill: var(--red);
         }
     }
+
+    @media screen and (max-width: 760px) {
+        height: 100px;
+    }
 }

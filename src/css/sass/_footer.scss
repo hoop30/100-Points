@@ -39,5 +39,19 @@ footer {
                 transform: scale(1.1);
             }
         }
+
+    }
+
+    @media screen and (max-width: 650px) {
+        bottom: 0;
+        
+        &>.footer-show {
+            display: none;
+        }
+
+        &>.content {
+            flex-direction: column;
+            padding: 20px 10px;
+        }
     }
 }

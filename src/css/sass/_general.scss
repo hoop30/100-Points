@@ -17,9 +17,19 @@ body {
     height: 100vh;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 30px;
+
+    @media screen and (max-width: 760px) {
+        padding: 10px;
+
+        &>main {
+            height: 70%;
+            top: 0;
+        }
+    }
 }
 
 main {
@@ -32,5 +42,10 @@ header, footer {
     position: absolute;
 }
 
-
+.red-round {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+}
 

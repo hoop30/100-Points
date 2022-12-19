@@ -1,6 +1,6 @@
 :root {
   --white: #fff;
-  --grey: #f7f7f7;
+  --grey: #e0e0e0;
   --red: #ea4d4c;
   --secondary: #2a324b;
   --text: #3d3737;
@@ -26,9 +26,19 @@ body {
   height: 100vh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 30px;
+}
+@media screen and (max-width: 760px) {
+  body {
+    padding: 10px;
+  }
+  body > main {
+    height: 70%;
+    top: 0;
+  }
 }
 
 main {
@@ -39,6 +49,13 @@ main {
 
 header, footer {
   position: absolute;
+}
+
+.red-round {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
 }
 
 header {
@@ -59,6 +76,11 @@ header > .new-game > svg {
   width: 50px;
   height: 50px;
   fill: var(--red);
+}
+@media screen and (max-width: 760px) {
+  header {
+    height: 100px;
+  }
 }
 
 footer {
@@ -97,4 +119,151 @@ footer > .content > button {
 }
 footer > .content > button:hover {
   transform: scale(1.1);
+}
+@media screen and (max-width: 650px) {
+  footer {
+    bottom: 0;
+  }
+  footer > .footer-show {
+    display: none;
+  }
+  footer > .content {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+main > .player-one, main .player-two {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+main > .player-one > span, main .player-two > span {
+  display: none;
+}
+main > .player-one.active, main .player-two.active {
+  background: var(--grey);
+  box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
+}
+main > .player-one.active > .player, main .player-two.active > .player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+main > .player-one.active > .player > h2, main .player-two.active > .player > h2 {
+  font-weight: 400;
+}
+main > .player-one.active > .player > span, main .player-two.active > .player > span {
+  display: block;
+}
+main > .player-one > .score, main .player-two > .score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+}
+main > .player-one > .score > .global, main .player-two > .score > .global {
+  font-size: 5em;
+  color: var(--red);
+}
+main > .player-one > .score > .current-score, main .player-two > .score > .current-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--red);
+  padding: 20px;
+}
+main > .player-one > .score > .current-score > .current, main .player-two > .score > .current-score > .current {
+  color: var(--white);
+  font-size: 2em;
+}
+main > .commande {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+main > .commande > button {
+  border: none;
+  background: none;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+  font-size: 1.2em;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+main > .commande > button > svg {
+  fill: var(--red);
+  width: 20px;
+  height: 20px;
+}
+@media screen and (max-width: 760px) {
+  main {
+    flex-direction: column;
+  }
+  main > .player-one, main .player-two {
+    width: 100%;
+    flex-direction: row;
+  }
+  main > .player-one > .score, main .player-two > .score {
+    gap: 10px;
+    font-size: 0.6em;
+  }
+  main > .commande {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 15px;
+    top: 46%;
+    height: auto;
+    font-size: 0.9em;
+  }
+}
+
+.dice {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+.dice > img {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  width: 150px;
+  height: 150px;
+  display: none;
+  background: var(--white);
+  border-radius: 10px;
+}
+.dice > img.active {
+  display: block;
+}
+@media screen and (max-width: 750px) {
+  .dice {
+    margin: 0;
+  }
+  .dice > img {
+    width: 70px;
+    height: 70px;
+  }
 }/*# sourceMappingURL=index.css.map */
