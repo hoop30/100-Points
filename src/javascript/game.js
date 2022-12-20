@@ -51,7 +51,6 @@ function newGame() {
     player1.current.innerHTML = 0
     player2.global.innerHTML = 0
     player2.current.innerHTML = 0
-    console.log('new game :', player1, player2);
 
     // define player to start
     getRandomNumber(1, 2) === 1 ? round(player1) : round(player2)
@@ -72,7 +71,6 @@ function round(player) {
     } else if (activePlayer === player2) {
         p2Side.classList.add('active')
     }
-    console.log('new round active player :', activePlayer.current.id, player1, player2);
     
 
     // set btn state active or not
@@ -105,11 +103,12 @@ function roll() {
     // stop roll btn durring dice animation
     btnRoll.classList.add('disabled')
     btnRoll.disabled = true
+
     // remove hold listener before new round
     btnHold.removeEventListener('click', hold, {once: true})
     
+    // random roll score
     const score = getRandomNumber(1, 6)
-    console.log('roll btn score : ', score);
     rollImg(score)
 
     // timeout wait for dice animation 
@@ -175,6 +174,18 @@ function switchPlayer(activePlayer) {
 // switch dice image with roll score result
 function rollImg(score) {
     dices.forEach(dice => {
+        
+        // animation if score is the same a precedent
+        if (dice.className === 'active' && dice.id == score) {
+            console.log('same roll');
+            dice.style.transform = 'rotateX(-180deg)';
+            setTimeout(() => {
+                //dice.style.transform = 'rotateX(360deg)';
+                dice.style = '';
+            }, 750);
+        }
+
+        // for any of other scrore as precendent animation by class 'active'
         if (dice.className === 'active') {
             dice.classList.remove('active')
         } 
