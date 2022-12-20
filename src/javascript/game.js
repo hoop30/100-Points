@@ -4,23 +4,22 @@ const p2Side = document.querySelector('#playerTwoSide')
 const btnStart = document.querySelector('#new-game')
 const btnRoll = document.querySelector('#roll')
 const btnHold = document.querySelector('#hold')
+const dices = document.querySelectorAll('#dice>img')
 const player1 = {
-    global: Number(document.querySelector('#p1-global').innerText),
-    current: Number(document.querySelector('#p1-current').innerText)
+    globalN: Number(document.querySelector('#p1-global').innerHTML),
+    currentN: Number(document.querySelector('#p1-current').innerHTML),
+    global: document.querySelector('#p1-global'),
+    current: document.querySelector('#p1-current'),
+    name: 'player1'
 }
 const player2 = {
-    global: Number(document.querySelector('#p2-global').innerText),
-    current: Number(document.querySelector('#p2-current').innerText)
+    globalN: Number(document.querySelector('#p2-global').innerHTML),
+    currentN: Number(document.querySelector('#p2-current').innerHTML),
+    global: document.querySelector('#p2-global'),
+    current: document.querySelector('#p2-current'),
+    name: 'player2'
 }
-let roll = false
-let hold = false
-
-if (hold) {
-    btnHold.classList.add('disable')
-} else {
-    btnHold.classList.remove('disable')
-}
-
+let activePlayer
 
 btnStart.addEventListener('click', () => {
     // alert if game is played
@@ -31,42 +30,54 @@ function alertNewGame() {
     // ask to reset current game for start a new game
     const response = confirm('New game will reste current game!! Start new game?')
     if (response) {
+        // remove precedent game listener to not add too listener befor créate a new game
+        btnRoll.removeEventListener('click', roll, {once: true})
+        btnHold.removeEventListener('click', hold, {once: true})
         newGame()
     }
 
 }
 
+// créate a new game 
 function newGame() {
     inGame = true
 
+    // before créate a new game all score is reset
+    player1.globalN = 0
+    player1.currentN = 0
+    player2.globalN = 0
+    player2.currentN = 0
+    player1.global.innerHTML = 0
+    player1.current.innerHTML = 0
+    player2.global.innerHTML = 0
+    player2.current.innerHTML = 0
+    console.log('new game :', player1, player2);
+
     // define player to start
-    let currentPlayer = getRandomNumber(1, 2)
-    
-    // start round
-    round(currentPlayer)
+    getRandomNumber(1, 2) === 1 ? round(player1) : round(player2)
 }
 
+// new round with current active player
 function round(player) {
     
+    
     // reset and set active player
-    let activePlayer
-
+    activePlayer = player
+    
     p1Side.classList.remove('active')
     p2Side.classList.remove('active')
     
-    if (player === 1) {
+    if (activePlayer === player1) {
         p1Side.classList.add('active')
-        activePlayer = player1
-    } else if (player === 2) {
+    } else if (activePlayer === player2) {
         p2Side.classList.add('active')
-        activePlayer = player2
     }
-
+    console.log('new round active player :', activePlayer.current.id, player1, player2);
     
-    // btn state
 
+    // set btn state active or not
     // // roll btn
-    if ((activePlayer.global + activePlayer.current) < 100) {
+    if ((activePlayer.globalN + activePlayer.currentN) < 100) {
         btnRoll.classList.remove('disabled')
         btnRoll.disabled = false
     } else {
@@ -75,7 +86,7 @@ function round(player) {
     }
 
     // // hold btn
-    if (activePlayer.current === 0) {
+    if (activePlayer.currentN === 0) {
         btnHold.classList.add('disabled')
         btnHold.disabled = true
     } else {
@@ -83,10 +94,77 @@ function round(player) {
         btnHold.disabled = false
     }
 
+    // listener btn 
+    btnRoll.addEventListener('click', roll, {once: true})
+    btnHold.addEventListener('click', hold, {once: true})
+}
 
-    // listener btn
-    btnRoll.addEventListener('click', () => roll())
-    btnHold.addEventListener('click', () => hold())
+// roll the dice and ammend score
+function roll() {
+
+    // remove hold listener before new round
+    btnHold.removeEventListener('click', hold, {once: true})
+    
+    const score = getRandomNumber(1, 6)
+    console.log('roll btn score : ', score);
+    rollImg(score)
+
+    if (score === 1) {
+        // reset player score and switch to new round with next player
+        activePlayer.currentN = 0
+        activePlayer.current.innerHTML = 0
+        switchPlayer(activePlayer)
+    } else {
+        // ammend new score and créate new round with same player
+        activePlayer.currentN += score
+        activePlayer.current.innerHTML = activePlayer.currentN
+        round(activePlayer)
+    }
+}
+
+// save current score to glabal and switch player
+function hold() {
+
+    // remove roll listener before new round
+    btnRoll.removeEventListener('click', roll, {once: true})
+
+    console.log(activePlayer.currentN);
+    // ammend score
+    activePlayer.global.innerHTML = activePlayer.globalN + activePlayer.currentN
+    activePlayer.globalN += activePlayer.currentN
+
+    if (activePlayer.globalN >= 100) {
+        const winner = `Winner ${activePlayer.name}`
+        alert(winner)
+    } else {
+
+        // reset player score and switch to next player
+        activePlayer.currentN = 0
+        activePlayer.current.innerHTML = 0
+        switchPlayer(activePlayer)
+    }
+
+}
+
+// switch player before start new round with
+function switchPlayer(activePlayer) {
+    activePlayer === player1 ? activePlayer = player2 : activePlayer = player1
+
+    round(activePlayer)
+}
+
+
+
+// switch dice image with roll score result
+function rollImg(score) {
+    dices.forEach(dice => {
+        if (dice.className === 'active') {
+            dice.classList.remove('active')
+        } 
+        if (dice.id == score) {
+            dice.classList.add('active')
+        }
+    })
 }
 
 // Return a secure random number between min and max
