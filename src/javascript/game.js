@@ -102,6 +102,9 @@ function round(player) {
 // roll the dice and ammend score
 function roll() {
 
+    // stop roll btn durring animation
+    btnRoll.classList.add('disabled')
+    btnRoll.disabled = true
     // remove hold listener before new round
     btnHold.removeEventListener('click', hold, {once: true})
     
@@ -109,17 +112,20 @@ function roll() {
     console.log('roll btn score : ', score);
     rollImg(score)
 
-    if (score === 1) {
-        // reset player score and switch to new round with next player
-        activePlayer.currentN = 0
-        activePlayer.current.innerHTML = 0
-        switchPlayer(activePlayer)
-    } else {
-        // ammend new score and créate new round with same player
-        activePlayer.currentN += score
-        activePlayer.current.innerHTML = activePlayer.currentN
-        round(activePlayer)
-    }
+    // timeout during animation 
+    setTimeout(() => {
+        if (score === 1) {
+            // reset player score and switch to new round with next player
+            activePlayer.currentN = 0
+            activePlayer.current.innerHTML = 0
+            switchPlayer(activePlayer)
+        } else {
+            // ammend new score and créate new round with same player
+            activePlayer.currentN += score
+            activePlayer.current.innerHTML = activePlayer.currentN
+            round(activePlayer)
+        }
+    }, 1500);
 }
 
 // save current score to glabal and switch player
@@ -149,6 +155,7 @@ function hold() {
 // switch player before start new round with
 function switchPlayer(activePlayer) {
     activePlayer === player1 ? activePlayer = player2 : activePlayer = player1
+
 
     round(activePlayer)
 }
