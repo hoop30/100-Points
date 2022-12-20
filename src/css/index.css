@@ -150,13 +150,13 @@ main > .player-one, main .player-two {
   justify-content: center;
   align-items: center;
   gap: 100px;
+  transition: 0.1s ease-out;
 }
 main > .player-one > span, main .player-two > span {
   display: none;
 }
 main > .player-one.active, main .player-two.active {
   background: var(--grey);
-  box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
 }
 main > .player-one.active > .player, main .player-two.active > .player {
   display: flex;
@@ -179,6 +179,10 @@ main > .player-one > .score > .global, main .player-two > .score > .global {
   font-size: 5em;
   color: var(--red);
 }
+main > .player-one > .score > .global.fade, main .player-two > .score > .global.fade {
+  -webkit-animation: fadeIn 0.8s ease-out;
+          animation: fadeIn 0.8s ease-out;
+}
 main > .player-one > .score > .current-score, main .player-two > .score > .current-score {
   display: flex;
   flex-direction: column;
@@ -191,6 +195,16 @@ main > .player-one > .score > .current-score, main .player-two > .score > .curre
 main > .player-one > .score > .current-score > .current, main .player-two > .score > .current-score > .current {
   color: var(--white);
   font-size: 2em;
+}
+main > .player-one > .score > .current-score > .current.fade, main .player-two > .score > .current-score > .current.fade {
+  -webkit-animation: fadeIn 0.8s ease-out;
+          animation: fadeIn 0.8s ease-out;
+}
+main .player-one.active {
+  box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
+}
+main .player-two.active {
+  box-shadow: -5px 0 50px rgba(0, 0, 0, 0.3);
 }
 main > .commande {
   position: absolute;
@@ -246,6 +260,33 @@ main > .commande > button > svg {
   }
 }
 
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  98% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  98% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .dice {
   display: flex;
   justify-content: center;

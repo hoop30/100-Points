@@ -102,7 +102,7 @@ function round(player) {
 // roll the dice and ammend score
 function roll() {
 
-    // stop roll btn durring animation
+    // stop roll btn durring dice animation
     btnRoll.classList.add('disabled')
     btnRoll.disabled = true
     // remove hold listener before new round
@@ -112,7 +112,7 @@ function roll() {
     console.log('roll btn score : ', score);
     rollImg(score)
 
-    // timeout during animation 
+    // timeout wait for dice animation 
     setTimeout(() => {
         if (score === 1) {
             // reset player score and switch to new round with next player
@@ -120,6 +120,12 @@ function roll() {
             activePlayer.current.innerHTML = 0
             switchPlayer(activePlayer)
         } else {
+        
+            // animation fadeIn on current score
+            activePlayer.current.classList.add('fade')
+            setTimeout(() => {
+                activePlayer.current.classList.remove('fade')
+            }, 1000);
             // ammend new score and créate new round with same player
             activePlayer.currentN += score
             activePlayer.current.innerHTML = activePlayer.currentN
@@ -134,7 +140,11 @@ function hold() {
     // remove roll listener before new round
     btnRoll.removeEventListener('click', roll, {once: true})
 
-    console.log(activePlayer.currentN);
+    // animation fadeIn on global score
+    activePlayer.global.classList.add('fade')
+            setTimeout(() => {
+                activePlayer.global.classList.remove('fade')
+            }, 1000);
     // ammend score
     activePlayer.global.innerHTML = activePlayer.globalN + activePlayer.currentN
     activePlayer.globalN += activePlayer.currentN
