@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="src/css/index.css">
 
     <!-- JAVASCRIPT -->
+    <script src="src/javascript/newGame.js" defer></script>
     <script src="src/javascript/game.js" defer></script>
     <script src="src/javascript/rules.js" defer></script>
 
@@ -25,7 +26,7 @@
 
 <body>
     <header>
-        <div id="new-game" class="new-game">
+        <div id="newGameBtn" class="new-game">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <style>
@@ -114,9 +115,9 @@
 
     </main>
 
-    <section id="gameSettings" class="game-settings show">
+    <section id="gameSettings" class="game-settings">
         <div class="game-settings-overlay"></div>
-        <div class="game-settings-content">
+        <div class="game-settings-content modal">
             <h2>New Game</h2>
             <button id="closeGameSettings" class="close-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
@@ -125,7 +126,7 @@
                 <div class="player-one-form">
                     <h3>Player one</h3>
                     <div class="input">
-                        <input id="pseudo1" type="text" value="Player 1">
+                        <input id="pseudo1" type="text" value="Player 1" maxlength="15" disabled>
                     </div>
                     <div class="input">
                         <label for="playerOneType">Player type</label>
@@ -138,7 +139,7 @@
                 <div class="player-two-form">
                     <h3>Player Two</h3>
                     <div class="input">
-                        <input id="pseudo2" type="text" value="Player 2">
+                        <input id="pseudo2" type="text" value="Player 2" maxlength="15">
                     </div>
                     <div class="input">
                         <label for="playerTwoType">Player type</label>
@@ -149,13 +150,13 @@
                     </div>
                 </div>
             </form>
-            <button class="start">Start Game</button>
+            <button id="btnStart" class="start">Start Game</button>
         </div>
     </section>
 
     <section id="rules" class="rules">
         <div id="rulesOverlay" class="overlay"></div>
-        <div class="content">
+        <div class="content modal">
             <h2>Rules</h2>
             <button id="rulesCloseBtn" class="close-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

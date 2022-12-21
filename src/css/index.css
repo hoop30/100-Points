@@ -78,6 +78,13 @@ header, footer {
   transform: rotate(0.25turn);
 }
 
+.modal {
+  background: var(--secondary);
+  border: solid 4px var(--red);
+  border-radius: 10px;
+  box-shadow: inset 5px 5px 30px rgba(0, 0, 0, 0.4);
+}
+
 header {
   top: 0;
   width: 100%;
@@ -169,8 +176,8 @@ main .player-two {
   gap: 100px;
   transition: 0.1s ease-out;
 }
-main > .player-one > .player > span,
-main .player-two > .player > span {
+main > .player-one > .player > .red-round,
+main .player-two > .player > .red-round {
   display: none;
 }
 main > .player-one.active,
@@ -187,8 +194,8 @@ main > .player-one.active > .player > h2,
 main .player-two.active > .player > h2 {
   font-weight: 400;
 }
-main > .player-one.active > .player > span,
-main .player-two.active > .player > span {
+main > .player-one.active > .player > .red-round,
+main .player-two.active > .player > .red-round {
   display: block;
 }
 main > .player-one > .score,
@@ -413,9 +420,12 @@ main .player-two > .score {
 }
 .rules > .content > h2 {
   margin-bottom: 30px;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 .rules > .content > ul > li {
   margin-bottom: 10px;
+  color: var(--red);
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .game-settings {
@@ -441,9 +451,6 @@ main .player-two > .score {
 .game-settings > .game-settings-content {
   max-width: 90%;
   z-index: 20;
-  background: var(--secondary);
-  border: solid 4px var(--red);
-  border-radius: 10px;
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -451,7 +458,6 @@ main .player-two > .score {
   align-items: center;
   gap: 50px;
   position: relative;
-  box-shadow: inset 5px 5px 30px rgba(0, 0, 0, 0.4);
 }
 .game-settings > .game-settings-content > h2,
 .game-settings > .game-settings-content h3,
@@ -498,6 +504,7 @@ main .player-two > .score {
   border: solid 2px var(--red);
   color: var(--white);
   border-radius: 5px;
+  cursor: pointer;
   box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.3);
 }
 @media screen and (max-width: 760px) {

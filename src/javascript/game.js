@@ -14,9 +14,10 @@
 let inGame = false
 let activePlayer
 
+//const btnStart = document.querySelector('#btnStart') declared in newGame.js
+
 const p1Side = document.querySelector('#playerOneSide')
 const p2Side = document.querySelector('#playerTwoSide')
-const btnStart = document.querySelector('#new-game')
 const btnRoll = document.querySelector('#roll')
 const btnHold = document.querySelector('#hold')
 const dices = document.querySelectorAll('#dice>img')
@@ -26,23 +27,38 @@ const player1 = {
     currentN: Number(document.querySelector('#p1-current').innerHTML),
     global: document.querySelector('#p1-global'),
     current: document.querySelector('#p1-current'),
-    name: 'player1'
+    name: 'player1',
+    pseudo: document.querySelector('#p1-pseudo')
 }
 const player2 = {
     globalN: Number(document.querySelector('#p2-global').innerHTML),
     currentN: Number(document.querySelector('#p2-current').innerHTML),
     global: document.querySelector('#p2-global'),
     current: document.querySelector('#p2-current'),
-    name: 'player2'
+    name: 'player2',
+    pseudo: document.querySelector('#p2-pseudo')
 }
-
+let formSettings = null
 
 
 // ---------- Listener ----------
 
 btnStart.addEventListener('click', () => {
+    
+    // settings recovery
+    formSettings = {
+        player1: {
+            pseudo: pseudo1.value,
+            cpu: playerOneType.value === 'cpu' ? true : false
+        },
+        player2: {
+            pseudo: pseudo2.value,
+            cpu: playerTwoType.value === 'cpu' ? true : false
+        }
+    }
+    
     // alert if a game is already in progress, before lose score
-    inGame ? alertNewGame() : newGame()
+    inGame ? alertNewGame(formSettings) : newGame(formSettings)
 })
 
 
@@ -53,8 +69,12 @@ btnStart.addEventListener('click', () => {
  * New game is starting
  *  */
 // create a new game 
-function newGame() {
+function newGame(formSettings) {
     inGame = true
+
+    // settings display
+    player1.pseudo.innerHTML = (formSettings.player1.pseudo)
+    console.log(player1.pseudo);
 
     // before create a new game all score is reset
     player1.globalN = 0
@@ -185,7 +205,7 @@ function hold() {
      */
     if (activePlayer.globalN >= 100) {
         //alert winner
-        const winner = `Winner ${activePlayer.name}`
+        const winner = `Winner ${activePlayer.pseudo.innerHTML}`
         alert(winner)
         inGame = false
         // disable btn
@@ -210,14 +230,14 @@ function hold() {
 // alert if a game is already played.
 // you can chose to continue the game
 // or start a new game
-function alertNewGame() {
+function alertNewGame(formSettings) {
     // ask to reset current game for start a new game
     const response = confirm('New game will reste current game!! Start new game?')
     if (response) {
         // remove precedent game listener to not add too listener befor créate a new game
         btnRoll.removeEventListener('click', roll, {once: true})
         btnHold.removeEventListener('click', hold, {once: true})
-        newGame()
+        newGame(formSettings)
     }
 
 }

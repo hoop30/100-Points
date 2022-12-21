@@ -34,10 +34,13 @@
 
         &>h2 {
             margin-bottom: 30px;
+            text-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.5);
         }
 
         &>ul>li {
             margin-bottom: 10px;
+            color: var(--red);
+            text-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.5);
         }
     }
     
