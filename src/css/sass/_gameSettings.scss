@@ -1,0 +1,97 @@
+.game-settings {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+
+    &.show {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+
+    &>.game-settings-overlay {
+        position: absolute;
+        z-index: 10;
+        background: rgba($color: #000000, $alpha: 0.3);
+        width: 100%;
+        height: 100%;
+    }
+
+    &>.game-settings-content {
+        max-width: 90%;
+        z-index: 20;
+        background: var(--secondary);
+        border: solid 4px var(--red);
+        border-radius: 10px;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        position: relative;
+        box-shadow: inset 5px 5px 30px rgba($color: #000000, $alpha: 0.4);
+
+        &>h2,
+        h3,
+        label {
+            color: var(--white);
+        }
+
+        &>h2 {
+            font-weight: 700;
+            text-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.5);
+        }
+        
+        &>form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            
+            &>.player-one-form, .player-two-form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                backdrop-filter: brightness(0.8);
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 5px 5px 40px rgba($color: #000000, $alpha: 0.3);
+                
+                &>h3 {
+                    font-weight: 400;
+                    margin-bottom: 20px;
+                    justify-self: center;
+                }
+
+                &>.input {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                }
+            }
+        }
+
+        &>.start {
+            padding: 5px 20px;
+            font-size: 1.1em;
+            font-weight: 400;
+            background: transparent;
+            backdrop-filter: brightness(0.8);
+            border: solid 2px var(--red);
+            color: var(--white);
+            border-radius: 5px;
+            box-shadow: 5px 5px 40px rgba($color: #000000, $alpha: 0.3);
+        }
+
+        @media screen and (max-width: 760px) {
+            
+            &>form {
+                flex-direction: column;
+            }
+        }
+    }
+}

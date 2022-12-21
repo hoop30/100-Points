@@ -52,3 +52,20 @@ header, footer {
 .disabled {
     filter: opacity(0.5);
 }
+
+.close-btn {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    fill: var(--red);
+    transition: 0.3s ease-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: rotate(0.25turn);
+    }
+}
