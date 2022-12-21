@@ -12,6 +12,7 @@ main {
         justify-content: center;
         align-items: center;
         gap: 100px;
+        transition: 0.1s ease-out;
 
         &>.player>span {
             display: none;
@@ -19,7 +20,6 @@ main {
 
         &.active {
             background: var(--grey);
-            box-shadow: 5px 0 50px rgba($color: #000000, $alpha: 0.3);
 
             &>.player {
                 display: flex;
@@ -45,9 +45,9 @@ main {
             &>.global {
                 font-size: 5em;
                 color: var(--red);
-
+                
                 &.fade {
-                    animation: fadeIn 0.8s ease-out;
+                        animation: fadeIn 0.8s ease-out;
                 }
             }
 
@@ -63,7 +63,7 @@ main {
                 &>.current {
                     color: var(--white);
                     font-size: 2em;
-
+                    
                     &.fade {
                         animation: fadeIn 0.8s ease-out;
                     }
@@ -73,11 +73,11 @@ main {
     }
 
     .player-one.active {
-        box-shadow: 5px 0 50px rgba($color: #000000, $alpha: 0.3);
+            box-shadow: 5px 0 50px rgba($color: #000000, $alpha: 0.3);
     }
 
     .player-two.active {
-        box-shadow: -5px 0 50px rgba($color: #000000, $alpha: 0.3);
+            box-shadow: -5px 0 50px rgba($color: #000000, $alpha: 0.3);
     }
 
     &>.commande {
@@ -163,6 +163,20 @@ main {
         opacity: 0;
     }
 
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 1;
+    }
+    98% {
+        transform: scale(2);
+        opacity: 0;
+    }
     to {
         opacity: 1;
         transform: scale(1);

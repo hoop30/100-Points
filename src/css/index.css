@@ -151,6 +151,7 @@ main .player-two {
   justify-content: center;
   align-items: center;
   gap: 100px;
+  transition: 0.1s ease-out;
 }
 main > .player-one > .player > span,
 main .player-two > .player > span {
@@ -159,7 +160,6 @@ main .player-two > .player > span {
 main > .player-one.active,
 main .player-two.active {
   background: var(--grey);
-  box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
 }
 main > .player-one.active > .player,
 main .player-two.active > .player {
@@ -314,24 +314,45 @@ main .player-two > .score {
     transform: scale(1);
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  98% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .dice {
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
+  width: 150px;
+  height: 150px;
 }
 .dice > img {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   width: 150px;
   height: 150px;
-  display: none;
+  position: absolute;
+  opacity: 0;
   background: var(--white);
   border-radius: 10px;
+  transition: 1.5s ease-in-out;
+  transform: rotateX(-360deg);
 }
 .dice > img.active {
-  display: block;
+  opacity: 1;
+  transform: rotateX(360deg);
 }
 @media screen and (max-width: 750px) {
   .dice {
+    width: 70px;
+    height: 70px;
     margin: 0;
   }
   .dice > img {

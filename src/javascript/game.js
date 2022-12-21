@@ -66,7 +66,6 @@ function newGame() {
     player1.current.innerHTML = 0
     player2.global.innerHTML = 0
     player2.current.innerHTML = 0
-    console.log('new game :', player1, player2);
 
     // set random player to start
     getRandomNumber(1, 2) === 1 ? round(player1) : round(player2)
@@ -90,7 +89,6 @@ function round(player) {
     } else if (activePlayer === player2) {
         p2Side.classList.add('active')
     }
-    console.log('new round active player :', activePlayer.current.id, player1, player2);
     
 
     // set btn state: active or not
@@ -134,19 +132,19 @@ function switchPlayer(activePlayer) {
 // roll the dice and ammend score
 function roll() {
 
+    // stop roll btn durring dice animation
+    btnRoll.classList.add('disabled')
+    btnRoll.disabled = true
+
     // remove hold listener before new round
     btnHold.removeEventListener('click', hold, {once: true})
     
+    // random roll score
     const score = getRandomNumber(1, 6)
-    console.log('roll btn score : ', score);
     rollImg(score)
 
     // timeout wait for dice animation 
     setTimeout(() => {
-
-        /**
-         * Depending on the score, the player changes or stays the same and new round start
-         */
         if (score === 1) {
             // reset player score and switch to new round with next player
             activePlayer.currentN = 0
@@ -159,7 +157,7 @@ function roll() {
             setTimeout(() => {
                 activePlayer.current.classList.remove('fade')
             }, 1000);
-            // ammend new score and create new round with same player
+            // ammend new score and créate new round with same player
             activePlayer.currentN += score
             activePlayer.current.innerHTML = activePlayer.currentN
             round(activePlayer)
@@ -173,7 +171,11 @@ function hold() {
     // remove roll listener before new round
     btnRoll.removeEventListener('click', roll, {once: true})
 
-    console.log(activePlayer.currentN);
+    // animation fadeIn on global score
+    activePlayer.global.classList.add('fade')
+            setTimeout(() => {
+                activePlayer.global.classList.remove('fade')
+            }, 1000);
     // ammend score
     activePlayer.global.innerHTML = activePlayer.globalN + activePlayer.currentN
     activePlayer.globalN += activePlayer.currentN
