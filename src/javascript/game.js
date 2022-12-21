@@ -49,7 +49,6 @@ btnStart.addEventListener('click', () => {
 
 // ---------- Gameplay functions ---------- 
 
-
 /** 
  * New game is starting
  *  */
@@ -185,12 +184,15 @@ function hold() {
      *  Else save the score and start new Round with next player
      */
     if (activePlayer.globalN >= 100) {
+        //alert winner
         const winner = `Winner ${activePlayer.name}`
         alert(winner)
         inGame = false
-        activePlayer = undefined
+        // disable btn
         btnHold.classList.add('disabled')
         btnHold.disabled = true
+        btnRoll.classList.add('disabled')
+        btnRoll.disabled = true
     } else {
 
         // reset player score and switch to next player
@@ -229,7 +231,7 @@ function rollImg(score) {
             dice.style.transform = 'rotateX(-180deg)';
             setTimeout(() => {
                 dice.style = '';
-            }, 750);
+            }, 1000);
         }
 
         // for any other score than the previous one, animation by setting class 'active'
