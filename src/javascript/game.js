@@ -1,10 +1,26 @@
+// ---------- Title ----------
+
+// comments
+
+/**
+ * Gameplay description
+ */
+
+
+
+
+// ---------- Variables declaration ---------- 
+
 let inGame = false
+let activePlayer
+
 const p1Side = document.querySelector('#playerOneSide')
 const p2Side = document.querySelector('#playerTwoSide')
 const btnStart = document.querySelector('#new-game')
 const btnRoll = document.querySelector('#roll')
 const btnHold = document.querySelector('#hold')
 const dices = document.querySelectorAll('#dice>img')
+
 const player1 = {
     globalN: Number(document.querySelector('#p1-global').innerHTML),
     currentN: Number(document.querySelector('#p1-current').innerHTML),
@@ -19,30 +35,29 @@ const player2 = {
     current: document.querySelector('#p2-current'),
     name: 'player2'
 }
-let activePlayer
+
+
+
+// ---------- Listener ----------
 
 btnStart.addEventListener('click', () => {
-    // alert if game is played
+    // alert if a game is already in progress, before lose score
     inGame ? alertNewGame() : newGame()
 })
 
-function alertNewGame() {
-    // ask to reset current game for start a new game
-    const response = confirm('New game will reste current game!! Start new game?')
-    if (response) {
-        // remove precedent game listener to not add too listener befor créate a new game
-        btnRoll.removeEventListener('click', roll, {once: true})
-        btnHold.removeEventListener('click', hold, {once: true})
-        newGame()
-    }
 
-}
 
-// créate a new game 
+// ---------- Gameplay functions ---------- 
+
+
+/** 
+ * New game is starting
+ *  */
+// create a new game 
 function newGame() {
     inGame = true
 
-    // before créate a new game all score is reset
+    // before create a new game all score is reset
     player1.globalN = 0
     player1.currentN = 0
     player2.globalN = 0
@@ -53,13 +68,16 @@ function newGame() {
     player2.current.innerHTML = 0
     console.log('new game :', player1, player2);
 
-    // define player to start
+    // set random player to start
     getRandomNumber(1, 2) === 1 ? round(player1) : round(player2)
 }
 
+
+/** 
+ * New round for same or new active player
+ * */
 // new round with current active player
 function round(player) {
-    
     
     // reset and set active player
     activePlayer = player
@@ -75,8 +93,8 @@ function round(player) {
     console.log('new round active player :', activePlayer.current.id, player1, player2);
     
 
-    // set btn state active or not
-    // // roll btn
+    // set btn state: active or not
+    // // roll btn (inactive if the score allows the player to win)
     if ((activePlayer.globalN + activePlayer.currentN) < 100) {
         btnRoll.classList.remove('disabled')
         btnRoll.disabled = false
@@ -85,7 +103,7 @@ function round(player) {
         btnRoll.disabled = true
     }
 
-    // // hold btn
+    // // hold btn (inactive if the player's score is zero)
     if (activePlayer.currentN === 0) {
         btnHold.classList.add('disabled')
         btnHold.disabled = true
@@ -94,10 +112,24 @@ function round(player) {
         btnHold.disabled = false
     }
 
+    /**
+     * The player command is expected
+     */
     // listener btn 
     btnRoll.addEventListener('click', roll, {once: true})
     btnHold.addEventListener('click', hold, {once: true})
 }
+
+// switch player before start new round with
+function switchPlayer(activePlayer) {
+    activePlayer === player1 ? activePlayer = player2 : activePlayer = player1
+
+    round(activePlayer)
+}
+
+
+
+// ---------- Commande functions ---------- 
 
 // roll the dice and ammend score
 function roll() {
@@ -109,17 +141,30 @@ function roll() {
     console.log('roll btn score : ', score);
     rollImg(score)
 
-    if (score === 1) {
-        // reset player score and switch to new round with next player
-        activePlayer.currentN = 0
-        activePlayer.current.innerHTML = 0
-        switchPlayer(activePlayer)
-    } else {
-        // ammend new score and créate new round with same player
-        activePlayer.currentN += score
-        activePlayer.current.innerHTML = activePlayer.currentN
-        round(activePlayer)
-    }
+    // timeout wait for dice animation 
+    setTimeout(() => {
+
+        /**
+         * Depending on the score, the player changes or stays the same and new round start
+         */
+        if (score === 1) {
+            // reset player score and switch to new round with next player
+            activePlayer.currentN = 0
+            activePlayer.current.innerHTML = 0
+            switchPlayer(activePlayer)
+        } else {
+        
+            // animation fadeIn on current score
+            activePlayer.current.classList.add('fade')
+            setTimeout(() => {
+                activePlayer.current.classList.remove('fade')
+            }, 1000);
+            // ammend new score and create new round with same player
+            activePlayer.currentN += score
+            activePlayer.current.innerHTML = activePlayer.currentN
+            round(activePlayer)
+        }
+    }, 1500);
 }
 
 // save current score to glabal and switch player
@@ -133,9 +178,17 @@ function hold() {
     activePlayer.global.innerHTML = activePlayer.globalN + activePlayer.currentN
     activePlayer.globalN += activePlayer.currentN
 
+    /**
+     *  If player win, alert Winner and stop the game.
+     *  Else save the score and start new Round with next player
+     */
     if (activePlayer.globalN >= 100) {
         const winner = `Winner ${activePlayer.name}`
         alert(winner)
+        inGame = false
+        activePlayer = undefined
+        btnHold.classList.add('disabled')
+        btnHold.disabled = true
     } else {
 
         // reset player score and switch to next player
@@ -146,18 +199,38 @@ function hold() {
 
 }
 
-// switch player before start new round with
-function switchPlayer(activePlayer) {
-    activePlayer === player1 ? activePlayer = player2 : activePlayer = player1
 
-    round(activePlayer)
+
+// ---------- Utiles functions ---------- 
+
+// alert if a game is already played.
+// you can chose to continue the game
+// or start a new game
+function alertNewGame() {
+    // ask to reset current game for start a new game
+    const response = confirm('New game will reste current game!! Start new game?')
+    if (response) {
+        // remove precedent game listener to not add too listener befor créate a new game
+        btnRoll.removeEventListener('click', roll, {once: true})
+        btnHold.removeEventListener('click', hold, {once: true})
+        newGame()
+    }
+
 }
 
-
-
-// switch dice image with roll score result
+// switch dice image with score result
 function rollImg(score) {
     dices.forEach(dice => {
+        
+        // animation if score is the same ad precedent
+        if (dice.className === 'active' && dice.id == score) {
+            dice.style.transform = 'rotateX(-180deg)';
+            setTimeout(() => {
+                dice.style = '';
+            }, 750);
+        }
+
+        // for any other score than the previous one, animation by setting class 'active'
         if (dice.className === 'active') {
             dice.classList.remove('active')
         } 

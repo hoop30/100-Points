@@ -1,0 +1,62 @@
+.rules {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    display: none;
+
+    &.show {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    &>.overlay {
+        background: rgba($color: #000000, $alpha: 0.2);
+        backdrop-filter: blur(1px);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    
+    &>.content {
+        z-index: 100;
+        background: var(--secondary);
+        width: fit-content;
+        max-width: 90%;
+        padding: 50px;
+        position: relative;
+
+        &>button {
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            fill: var(--red);
+            transition: 0.3s ease-out;
+            cursor: pointer;
+
+            &:hover {
+                transform: rotate(0.25turn);
+            }
+        }
+
+        &>h2, p {
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        &>h2 {
+            margin-bottom: 30px;
+        }
+
+        &>ul>li {
+            margin-bottom: 10px;
+        }
+    }
+    
+    
+}

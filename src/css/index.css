@@ -142,7 +142,8 @@ main {
   height: 100%;
   display: flex;
 }
-main > .player-one, main .player-two {
+main > .player-one,
+main .player-two {
   width: 50%;
   height: 100%;
   display: flex;
@@ -151,35 +152,48 @@ main > .player-one, main .player-two {
   align-items: center;
   gap: 100px;
 }
-main > .player-one > span, main .player-two > span {
+main > .player-one > .player > span,
+main .player-two > .player > span {
   display: none;
 }
-main > .player-one.active, main .player-two.active {
+main > .player-one.active,
+main .player-two.active {
   background: var(--grey);
   box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
 }
-main > .player-one.active > .player, main .player-two.active > .player {
+main > .player-one.active > .player,
+main .player-two.active > .player {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-main > .player-one.active > .player > h2, main .player-two.active > .player > h2 {
+main > .player-one.active > .player > h2,
+main .player-two.active > .player > h2 {
   font-weight: 400;
 }
-main > .player-one.active > .player > span, main .player-two.active > .player > span {
+main > .player-one.active > .player > span,
+main .player-two.active > .player > span {
   display: block;
 }
-main > .player-one > .score, main .player-two > .score {
+main > .player-one > .score,
+main .player-two > .score {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 100px;
 }
-main > .player-one > .score > .global, main .player-two > .score > .global {
+main > .player-one > .score > .global,
+main .player-two > .score > .global {
   font-size: 5em;
   color: var(--red);
 }
-main > .player-one > .score > .current-score, main .player-two > .score > .current-score {
+main > .player-one > .score > .global.fade,
+main .player-two > .score > .global.fade {
+  -webkit-animation: fadeIn 0.8s ease-out;
+          animation: fadeIn 0.8s ease-out;
+}
+main > .player-one > .score > .current-score,
+main .player-two > .score > .current-score {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -188,9 +202,21 @@ main > .player-one > .score > .current-score, main .player-two > .score > .curre
   background: var(--red);
   padding: 20px;
 }
-main > .player-one > .score > .current-score > .current, main .player-two > .score > .current-score > .current {
+main > .player-one > .score > .current-score > .current,
+main .player-two > .score > .current-score > .current {
   color: var(--white);
   font-size: 2em;
+}
+main > .player-one > .score > .current-score > .current.fade,
+main .player-two > .score > .current-score > .current.fade {
+  -webkit-animation: fadeIn 0.8s ease-out;
+          animation: fadeIn 0.8s ease-out;
+}
+main .player-one.active {
+  box-shadow: 5px 0 50px rgba(0, 0, 0, 0.3);
+}
+main .player-two.active {
+  box-shadow: -5px 0 50px rgba(0, 0, 0, 0.3);
 }
 main > .commande {
   position: absolute;
@@ -228,11 +254,20 @@ main > .commande > button > svg {
   main {
     flex-direction: column;
   }
-  main > .player-one, main .player-two {
+  main > .player-one,
+main .player-two {
     width: 100%;
     flex-direction: row;
   }
-  main > .player-one > .score, main .player-two > .score {
+  main > .player-one > .player,
+main .player-two > .player {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+  main > .player-one > .score,
+main .player-two > .score {
+    width: 50%;
     gap: 10px;
     font-size: 0.6em;
   }
@@ -244,8 +279,41 @@ main > .commande > button > svg {
     height: auto;
     font-size: 0.9em;
   }
+  main .player-one.active {
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  }
+  main .player-two.active {
+    box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.3);
+  }
 }
 
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  98% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  98% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .dice {
   display: flex;
   justify-content: center;
@@ -270,4 +338,60 @@ main > .commande > button > svg {
     width: 70px;
     height: 70px;
   }
+}
+
+.rules {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  display: none;
+}
+.rules.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rules > .overlay {
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.rules > .content {
+  z-index: 100;
+  background: var(--secondary);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90%;
+  padding: 50px;
+  position: relative;
+}
+.rules > .content > button {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill: var(--red);
+  transition: 0.3s ease-out;
+  cursor: pointer;
+}
+.rules > .content > button:hover {
+  transform: rotate(0.25turn);
+}
+.rules > .content > h2, .rules > .content p {
+  color: var(--white);
+  font-weight: 400;
+}
+.rules > .content > h2 {
+  margin-bottom: 30px;
+}
+.rules > .content > ul > li {
+  margin-bottom: 10px;
 }/*# sourceMappingURL=index.css.map */

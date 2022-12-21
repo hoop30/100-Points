@@ -14,6 +14,7 @@
 
     <!-- JAVASCRIPT -->
     <script src="src/javascript/game.js" defer></script>
+    <script src="src/javascript/rules.js" defer></script>
 
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,12 +113,44 @@
         </section>
 
     </main>
-
+    
+    <section id="rules" class="rules">
+        <div id="rulesOverlay" class="overlay"></div>
+        <div class="content">
+            <h2>Rules</h2>
+            <button id="rulesCloseBtn" class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </button>
+            <ul>
+                <li>
+                    <p>
+                        Create a new game to start playing, it will choose the first player to start
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        To play your turn you can roll the dice how many times you want. But if the result is 'one' you lose your score
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Record your score by pressing the Hold button. It will keep your score safe and stop your turn.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Winner of the game is the first player to have 100 points !!
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
     <footer>
         <div class="footer-show"></div>
         <div class="content">
             <h2>100 Points</h2>
-            <button>Rules</button>
+            <button id="rulesBtn">Rules</button>
             <p>Thanks to play, this game made by GRANIER Kévin.</p>
         </div>
     </footer>

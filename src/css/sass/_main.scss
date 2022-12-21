@@ -3,7 +3,8 @@ main {
     height: 100%;
     display: flex;
 
-    &>.player-one, .player-two {
+    &>.player-one,
+    .player-two {
         width: 50%;
         height: 100%;
         display: flex;
@@ -12,7 +13,7 @@ main {
         align-items: center;
         gap: 100px;
 
-        &>span {
+        &>.player>span {
             display: none;
         }
 
@@ -24,9 +25,11 @@ main {
                 display: flex;
                 align-items: center;
                 gap: 10px;
+
                 &>h2 {
                     font-weight: 400;
                 }
+
                 &>span {
                     display: block;
                 }
@@ -42,8 +45,12 @@ main {
             &>.global {
                 font-size: 5em;
                 color: var(--red);
+
+                &.fade {
+                    animation: fadeIn 0.8s ease-out;
+                }
             }
-            
+
             &>.current-score {
                 display: flex;
                 flex-direction: column;
@@ -52,13 +59,25 @@ main {
                 gap: 10px;
                 background: var(--red);
                 padding: 20px;
-                
+
                 &>.current {
                     color: var(--white);
                     font-size: 2em;
+
+                    &.fade {
+                        animation: fadeIn 0.8s ease-out;
+                    }
                 }
             }
         }
+    }
+
+    .player-one.active {
+        box-shadow: 5px 0 50px rgba($color: #000000, $alpha: 0.3);
+    }
+
+    .player-two.active {
+        box-shadow: -5px 0 50px rgba($color: #000000, $alpha: 0.3);
     }
 
     &>.commande {
@@ -97,11 +116,19 @@ main {
     @media screen and (max-width: 760px) {
         flex-direction: column;
 
-        &>.player-one, .player-two {
+        &>.player-one,
+        .player-two {
             width: 100%;
             flex-direction: row;
 
+            &>.player {
+                width: 50%;
+                display: flex;
+                justify-content: center;
+            }
+
             &>.score {
+                width: 50%;
                 gap: 10px;
                 font-size: 0.6em;
             }
@@ -110,10 +137,34 @@ main {
         &>.commande {
             flex-direction: row;
             justify-content: space-around;
-            padding: 0  15px;
+            padding: 0 15px;
             top: 46%;
             height: auto;
             font-size: 0.9em;
         }
+
+        .player-one.active {
+            box-shadow: 0 5px 30px rgba($color: #000000, $alpha: 0.3);
+        }
+
+        .player-two.active {
+            box-shadow: 0 -5px 30px rgba($color: #000000, $alpha: 0.3);
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 1;
+    }
+
+    98% {
+        transform: scale(2);
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
