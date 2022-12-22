@@ -1,203 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>100 Points</title>
+        <meta
+            name="description"
+            content="100 Points chalenge, un ou deux joueurs s'affonte pour atteindre les 100 points en premier, mais attention faite un 1 et votre tour en perdu! serait vous de taille a reléver le défi. Contre vos amis ou l'ordinateur qui de vous sera le meilleur!!"
+        />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>100 Points</title>
-    <meta name="description"
-        content="100 Points chalenge, un ou deux joueurs s'affonte pour atteindre les 100 points en premier, mais attention faite un 1 et votre tour en perdu! serait vous de taille a reléver le défi. Contre vos amis ou l'ordinateur qui de vous sera le meilleur!!">
+        <!-- CSS -->
+        <link rel="stylesheet" href="src/css/index.css" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="src/css/index.css">
+        <!-- JAVASCRIPT -->
+        <script src="src/javascript/newGame.js" defer></script>
+        <script src="src/javascript/game.js" defer></script>
+        <script src="src/javascript/rules.js" defer></script>
 
-    <!-- JAVASCRIPT -->
-    <script src="src/javascript/newGame.js" defer></script>
-    <script src="src/javascript/game.js" defer></script>
-    <script src="src/javascript/rules.js" defer></script>
+        <!-- FONTS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
 
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-    <header>
-        <div id="newGameBtn" class="new-game">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <style>
-                        .cls-1 {
-                            fill: none;
-                        }
-                    </style>
-                </defs>
-                <title />
-                <g data-name="Layer 2" id="Layer_2">
-                    <path d="M16,29A13,13,0,1,1,29,16,13,13,0,0,1,16,29ZM16,5A11,11,0,1,0,27,16,11,11,0,0,0,16,5Z" />
-                    <path d="M16,23a1,1,0,0,1-1-1V10a1,1,0,0,1,2,0V22A1,1,0,0,1,16,23Z" />
-                    <path d="M22,17H10a1,1,0,0,1,0-2H22a1,1,0,0,1,0,2Z" />
-                </g>
-                <g id="frame">
-                    <rect class="cls-1" height="32" width="32" />
-                </g>
-            </svg>
-            <h1>NEW GAME</h1>
-        </div>
-    </header>
-
-    <main>
-
-        <section id="playerOneSide" class="player-one">
-            <div class="player">
-                <h2 id="p1-pseudo" class="pseudo">Player 1</h2>
-                <span class="red-round"></span>
-            </div>
-            <div class="score">
-                <p id="p1-global" class="global">0</p>
-                <div class="current-score">
-                    <p>CURRENT</p>
-                    <p id="p1-current" class="current">0</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="playerTwoSide" class="player-two">
-            <div class="player">
-                <h2 id="p2-pseudo" class="pseudo">Player 2</h2>
-                <span class="red-round"></span>
-            </div>
-            <div class="score">
-                <p id="p2-global" class="global">0</p>
-                <div class="current-score">
-                    <p>CURRENT</p>
-                    <p id="p2-current" class="current">0</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="commande">
-            <div id="dice" class="dice">
-                <img id="1" class="active" src="src/assets/dès/face-un.jpg" alt="Un">
-                <img id="2" src="src/assets/dès/face-deux.jpg" alt="Deux">
-                <img id="3" src="src/assets/dès/face-trois.jpg" alt="Trois">
-                <img id="4" src="src/assets/dès/face-quatre.jpg" alt="Quatre">
-                <img id="5" src="src/assets/dès/face-cinq.jpg" alt="Cinq">
-                <img id="6" src="src/assets/dès/face-six.jpg" alt="Six">
-            </div>
-            <button id="roll" class="disabled" disabled>
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16"
-                    style="enable-background:new 0 0 16 16;" xml:space="preserve">
-                    <g>
-                        <path d="M2.083,9H0.062H0v5l1.481-1.361C2.932,14.673,5.311,16,8,16c4.08,0,7.446-3.054,7.938-7h-2.021
-		c-0.476,2.838-2.944,5-5.917,5c-2.106,0-3.96-1.086-5.03-2.729L5.441,9H2.083z" />
-                        <path d="M8,0C3.92,0,0.554,3.054,0.062,7h2.021C2.559,4.162,5.027,2,8,2c2.169,0,4.07,1.151,5.124,2.876
-		L11,7h2h0.917h2.021H16V2l-1.432,1.432C13.123,1.357,10.72,0,8,0z" />
+    <body>
+        <header>
+            <div id="newGameBtn" class="new-game">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: none;
+                            }
+                        </style>
+                    </defs>
+                    <title />
+                    <g data-name="Layer 2" id="Layer_2">
+                        <path
+                            d="M16,29A13,13,0,1,1,29,16,13,13,0,0,1,16,29ZM16,5A11,11,0,1,0,27,16,11,11,0,0,0,16,5Z"
+                        />
+                        <path
+                            d="M16,23a1,1,0,0,1-1-1V10a1,1,0,0,1,2,0V22A1,1,0,0,1,16,23Z"
+                        />
+                        <path d="M22,17H10a1,1,0,0,1,0-2H22a1,1,0,0,1,0,2Z" />
+                    </g>
+                    <g id="frame">
+                        <rect class="cls-1" height="32" width="32" />
                     </g>
                 </svg>
-                ROLL DICE
-            </button>
-            <button id="hold" class="disabled" disabled>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z" />
-                    <path fill-rule="evenodd"
-                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                </svg>
-                HOLD
-            </button>
+                <h1>NEW GAME</h1>
+            </div>
+        </header>
+
+        <main>
+            <section id="playerOneSide" class="player-one">
+                <div class="player">
+                    <h2 id="p1-pseudo" class="pseudo">Player 1</h2>
+                    <span class="red-round"></span>
+                </div>
+                <div class="score">
+                    <p id="p1-global" class="global">0</p>
+                    <div class="current-score">
+                        <p>CURRENT</p>
+                        <p id="p1-current" class="current">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="playerTwoSide" class="player-two">
+                <div class="player">
+                    <h2 id="p2-pseudo" class="pseudo">Player 2</h2>
+                    <span class="red-round"></span>
+                </div>
+                <div class="score">
+                    <p id="p2-global" class="global">0</p>
+                    <div class="current-score">
+                        <p>CURRENT</p>
+                        <p id="p2-current" class="current">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commande">
+                <div id="dice" class="dice">
+                    <img
+                        id="1"
+                        class="active"
+                        src="src/assets/dès/face-un.jpg"
+                        alt="Un"
+                    />
+                    <img id="2" src="src/assets/dès/face-deux.jpg" alt="Deux" />
+                    <img
+                        id="3"
+                        src="src/assets/dès/face-trois.jpg"
+                        alt="Trois"
+                    />
+                    <img
+                        id="4"
+                        src="src/assets/dès/face-quatre.jpg"
+                        alt="Quatre"
+                    />
+                    <img id="5" src="src/assets/dès/face-cinq.jpg" alt="Cinq" />
+                    <img id="6" src="src/assets/dès/face-six.jpg" alt="Six" />
+                </div>
+                <button id="roll" class="disabled" disabled>
+                    <svg
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 16 16"
+                        style="enable-background: new 0 0 16 16"
+                        xml:space="preserve"
+                    >
+                        <g>
+                            <path
+                                d="M2.083,9H0.062H0v5l1.481-1.361C2.932,14.673,5.311,16,8,16c4.08,0,7.446-3.054,7.938-7h-2.021
+		c-0.476,2.838-2.944,5-5.917,5c-2.106,0-3.96-1.086-5.03-2.729L5.441,9H2.083z"
+                            />
+                            <path
+                                d="M8,0C3.92,0,0.554,3.054,0.062,7h2.021C2.559,4.162,5.027,2,8,2c2.169,0,4.07,1.151,5.124,2.876
+		L11,7h2h0.917h2.021H16V2l-1.432,1.432C13.123,1.357,10.72,0,8,0z"
+                            />
+                        </g>
+                    </svg>
+                    ROLL DICE
+                </button>
+                <button id="hold" class="disabled" disabled>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-box-arrow-in-down"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"
+                        />
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"
+                        />
+                    </svg>
+                    HOLD
+                </button>
+            </section>
+        </main>
+
+        <section id="gameSettings" class="game-settings">
+            <div class="game-settings-overlay"></div>
+            <div class="game-settings-content modal">
+                <h2>New Game</h2>
+                <button id="closeGameSettings" class="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                        />
+                    </svg>
+                </button>
+                <form action="">
+                    <div class="player-one-form">
+                        <h3>Player one</h3>
+                        <div class="input">
+                            <input
+                                id="pseudo1"
+                                type="text"
+                                value="Player 1"
+                                maxlength="15"
+                                disabled
+                            />
+                        </div>
+                        <div class="input">
+                            <label for="playerOneType">Player type</label>
+                            <select id="playerOneType" name="player-type">
+                                <option value="human">Human</option>
+                                <option value="cpu">Computer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="player-two-form">
+                        <h3>Player Two</h3>
+                        <div class="input">
+                            <input
+                                id="pseudo2"
+                                type="text"
+                                value="Player 2"
+                                maxlength="15"
+                            />
+                        </div>
+                        <div class="input">
+                            <label for="playerTwoType">Player type</label>
+                            <select id="playerTwoType" name="player-type">
+                                <option value="human">Human</option>
+                                <option value="cpu">Computer</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <button id="btnStart" class="start">Start Game</button>
+            </div>
         </section>
 
-    </main>
+        <section id="rules" class="rules">
+            <div id="rulesOverlay" class="overlay"></div>
+            <div class="content modal">
+                <h2>Rules</h2>
+                <button id="rulesCloseBtn" class="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                        />
+                    </svg>
+                </button>
+                <ul>
+                    <li>
+                        <p>
+                            Create a new game to start playing, it will choose
+                            the first player to start
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            To play your turn you can roll the dice how many
+                            times you want. But if the result is 'one' you lose
+                            your score
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Record your score by pressing the Hold button. It
+                            will keep your score safe and stop your turn.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Winner of the game is the first player to have 100
+                            points !!
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-    <section id="gameSettings" class="game-settings">
-        <div class="game-settings-overlay"></div>
-        <div class="game-settings-content modal">
-            <h2>New Game</h2>
-            <button id="closeGameSettings" class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-            <form action="">
-                <div class="player-one-form">
-                    <h3>Player one</h3>
-                    <div class="input">
-                        <input id="pseudo1" type="text" value="Player 1" maxlength="15" disabled>
-                    </div>
-                    <div class="input">
-                        <label for="playerOneType">Player type</label>
-                        <select id="playerOneType" name="player-type">
-                            <option value="human">Human</option>
-                            <option value="cpu">Computer</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="player-two-form">
-                    <h3>Player Two</h3>
-                    <div class="input">
-                        <input id="pseudo2" type="text" value="Player 2" maxlength="15">
-                    </div>
-                    <div class="input">
-                        <label for="playerTwoType">Player type</label>
-                        <select id="playerTwoType" name="player-type">
-                            <option value="human">Human</option>
-                            <option value="cpu">Computer</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
-            <button id="btnStart" class="start">Start Game</button>
-        </div>
-    </section>
-
-    <section id="rules" class="rules">
-        <div id="rulesOverlay" class="overlay"></div>
-        <div class="content modal">
-            <h2>Rules</h2>
-            <button id="rulesCloseBtn" class="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path
-                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                </svg>
-            </button>
-            <ul>
-                <li>
-                    <p>
-                        Create a new game to start playing, it will choose the first player to start
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        To play your turn you can roll the dice how many times you want. But if the result is 'one' you
-                        lose your score
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        Record your score by pressing the Hold button. It will keep your score safe and stop your turn.
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        Winner of the game is the first player to have 100 points !!
-                    </p>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-show"></div>
-        <div class="content">
-            <h2>100 Points</h2>
-            <button id="rulesBtn">Rules</button>
-            <p>Thanks to play, this game made by GRANIER Kévin.</p>
-        </div>
-    </footer>
-</body>
-
+        <footer>
+            <div class="footer-show"></div>
+            <div class="content">
+                <h2>100 Points</h2>
+                <button id="rulesBtn">Rules</button>
+                <p>Thanks to play, this game made by GRANIER Kévin.</p>
+            </div>
+        </footer>
+    </body>
 </html>
